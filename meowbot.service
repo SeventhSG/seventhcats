@@ -1,0 +1,25 @@
+[Unit]
+Description=MeowBot Discord Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Change 'ubuntu' to your actual username on the Pi
+User=ubuntu
+WorkingDirectory=/home/ubuntu/meowbot
+ExecStart=/home/ubuntu/meowbot/venv/bin/python bot.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Environment
+EnvironmentFile=/home/ubuntu/meowbot/.env
+
+# Safety limits (good practice on a Pi)
+MemoryMax=512M
+CPUQuota=80%
+
+[Install]
+WantedBy=multi-user.target
